@@ -1,0 +1,23 @@
+{
+  "name": "dotenv-cache",
+  "version": "0.0.1",
+  "author": "kris",
+  "main": "umd/dotenv-cache.umd.js",
+  "types": "lib/index.ts",
+  "module": "./es/index.js",
+  "exports": {
+    "require": "./umd/dotenv-cache.umd.js",
+    "import": "./lib/index.ts"
+  },
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "dev": "vite --config vite-dev.config.ts build",
+    "build": "vite --config vite-build.config.ts build"
+  },
+  "dependencies": {
+    "vite": "^2.0.5",
+    "@types/node": "^16.4.3",
+    "dotenv": "^10.0.0"
+  }
+}
