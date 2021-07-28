@@ -15,6 +15,11 @@ export default defineConfig({
     outDir: "umd",
     brotliSize: false,
     manifest: false,
+    rollupOptions: {
+      // make sure to externalize deps that shouldn't be bundled
+      // into your library
+      external: ["fs", "path"],
+    },
   },
   optimizeDeps: {
     exclude: ["monaco-editor", "vscode"],

@@ -1,5 +1,5 @@
-const path = require("path");
-const fs = require("fs");
+import fs from "fs";
+import path from "path";
 import { parse } from "dotenv";
 import os from "os";
 
@@ -16,7 +16,7 @@ function resolveHome(envPath: string) {
 }
 
 // 缓存对象，用于测试或检测
-const envCache = {} as { [key: string]: string | number };
+const envCache = {} as { [key: string]: string };
 
 const config = (options?: DotenvConfigOptions) => {
   let dotenvPath = path.resolve(process.cwd(), ".env");
@@ -39,12 +39,7 @@ const config = (options?: DotenvConfigOptions) => {
     // specifying an encoding returns a string instead of a buffer
     const parsed = parse(fs.readFileSync(dotenvPath, { encoding }), { debug });
     Object.keys(parsed).forEach(function (key) {
-      const val = Number(parsed[key]);
-      if (isNaN(val)) {
-        envCache[key] = parsed[key];
-      } else {
-        envCache[key] = val;
-      }
+      envCache[key] = parsed[key];
     });
 
     return { parsed };
@@ -53,16 +48,19 @@ const config = (options?: DotenvConfigOptions) => {
   }
 };
 
-const get = (key: string): string | number | null => {
+const get = (key: string): string => {
   if (Object.prototype.hasOwnProperty.call(envCache, key)) {
     return envCache[key];
   }
-  return null;
+  if (Object.prototype.hasOwnProperty.call(process.env, key)) {
+    return process.env[key];
+  }
+  return "";
 };
 
 const set = (key: string, val: string | number): boolean => {
   try {
-    envCache[key] = val;
+    envCache[key] = val.toString();
     return true;
   } catch (error) {
     return false;

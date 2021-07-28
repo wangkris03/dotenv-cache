@@ -1,6 +1,6 @@
 # dotenv-cache
 
-这是一个使用 npm 发包测试, ts 工程, 编译使用 vite，参考 dotenv
+这是一个使用 npm 发包, ts 工程, 编译使用 vite，参考 dotenv
 
 ## 配置本地 .env
 
@@ -27,4 +27,6 @@ console.log(env.get("PORT"));
 console.log(env.set("ENV", "prod"));
 console.log(env.get("ENV"));
 console.log("review env", env.envCache);
+//优先获取.env配置，不存在获取process.env
+console.log(env.get("ALLUSERSPROFILE"));
 ```

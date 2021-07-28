@@ -5,6 +5,7 @@ export default defineConfig({
     polyfillDynamicImport: false,
     assetsInlineLimit: 512,
     // target: "es",
+
     lib: {
       name: "dotenvCache",
       entry: "example/index.ts",
@@ -15,6 +16,11 @@ export default defineConfig({
     outDir: "dist",
     brotliSize: false,
     manifest: false,
+    rollupOptions: {
+      // make sure to externalize deps that shouldn't be bundled
+      // into your library
+      external: ["fs", "path"],
+    },
   },
   optimizeDeps: {
     exclude: ["monaco-editor", "vscode"],
